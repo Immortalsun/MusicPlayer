@@ -1,0 +1,1 @@
+c:\users\maashes\documents\visual studio 2013\Projects\MusicPlayer\MusicPlayer\bin\Debug\MusicPlayer.exe.config
