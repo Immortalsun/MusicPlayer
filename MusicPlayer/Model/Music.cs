@@ -8,7 +8,6 @@ namespace MusicPlayer.Model
     {
         #region Fields
         private string _filePath, _name, _artist, _album;
-        private bool _isPlaying;
         #endregion
 
         #region Properties
@@ -35,35 +34,18 @@ namespace MusicPlayer.Model
             get { return _album; }
             set { _album = value; }
         }
-
-        public bool IsPlaying
-        {
-            get { return _isPlaying; }
-            set { _isPlaying = value; }
-        }
         #endregion
 
         #region Constructors
         public Music(string filePath)
         {
-            if (ValidateFile(filePath))
-            {
-                FilePath = filePath;
-                SetupSongMetadata();
-            }
+            FilePath = filePath;
+            SetupSongMetadata();
         }
         #endregion
 
         #region Methods
-        public bool ValidateFile(string filePath)
-        {
-            if (File.Exists(filePath) && Path.GetExtension(filePath).ToLower().Equals(".mp3"))
-            {
-                return true;
-            }
-
-            return false;
-        }
+        
 
         public void SetupSongMetadata()
         {
