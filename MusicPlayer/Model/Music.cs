@@ -1,4 +1,8 @@
-﻿namespace MusicPlayer.Model
+﻿using System;
+using System.IO;
+using System.Linq;
+
+namespace MusicPlayer.Model
 {
     public class Music
     {
@@ -40,11 +44,57 @@
         #endregion
 
         #region Constructors
-
+        public Music(string filePath)
+        {
+            if (ValidateFile(filePath))
+            {
+                FilePath = filePath;
+                SetupSongMetadata();
+            }
+        }
         #endregion
 
         #region Methods
+        public bool ValidateFile(string filePath)
+        {
+            if (File.Exists(filePath) && Path.GetExtension(filePath).ToLower().Equals(".mp3"))
+            {
+                return true;
+            }
 
+            return false;
+        }
+
+        public void SetupSongMetadata()
+        {
+            TagLib.File musicFile = TagLib.File.Create(FilePath);
+            Name = musicFile.Tag.Title;
+            GenerateArtistList(musicFile.Tag.Performers);
+            Album = musicFile.Tag.Album;
+        }
+
+        public void GenerateArtistList(string[] performers)
+        {
+            if(!performers.Any())
+                return;
+
+            if (performers.Count() == 1)
+            {
+               Artist = performers[0];
+            }
+            else 
+            {
+                for (int i = 0; i < performers.Length; i++)
+                {
+                    Artist += performers[i];
+
+                    if (i < performers.Length - 1)
+                    {
+                        Artist += ", ";
+                    }
+                }
+            }
+        }
         #endregion
 
         #region Events
