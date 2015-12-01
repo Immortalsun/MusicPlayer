@@ -1,1 +1,17 @@
 c:\users\maashes\documents\visual studio 2013\Projects\MusicPlayer\MusicPlayer\bin\Debug\MusicPlayer.exe.config
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.csprojResolveAssemblyReference.cache
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\obj\Debug\App.g.cs
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer_MarkupCompile.cache
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\bin\Debug\MusicPlayer.exe
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\bin\Debug\MusicPlayer.pdb
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\bin\Debug\policy.2.0.taglib-sharp.dll
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\bin\Debug\taglib-sharp.dll
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\bin\Debug\policy.2.0.taglib-sharp.config
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\obj\Debug\View\MainWindow.g.cs
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer_MarkupCompile.lref
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\obj\Debug\View\MainWindow.baml
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.g.resources
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.Properties.Resources.resources
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.csproj.GenerateResource.Cache
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.exe
+C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.pdb

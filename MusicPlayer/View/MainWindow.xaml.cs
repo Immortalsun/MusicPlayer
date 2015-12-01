@@ -24,5 +24,10 @@ namespace MusicPlayer
             InitializeComponent();
             DataContext = _viewModel;
         }
+
+        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

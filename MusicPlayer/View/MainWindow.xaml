@@ -1,11 +1,44 @@
 ﻿<Window x:Class="MusicPlayer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:viewModel="clr-namespace:MusicPlayer.ViewModel"
+        d:DataContext="{d:DesignInstance d:Type=viewModel:MusicPlayerViewModel}"
         Title="MainWindow" Height="350" Width="525">
+    
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border
+                                x:Name="Border"
+                                BorderThickness="0"
+                                Background="LightBlue">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Text="{TemplateBinding Content}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="CornflowerBlue"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
@@ -24,15 +57,35 @@
             
             <Button
                 x:Name="OpenButton"
+                Width="150"
+                Height="20"
                 Content="Open Music Directory"
                 Command="{Binding OpenDirectoryCommand}"
                 Margin="0,0,10,0"/>
             
             <Button
+                Width="150"
+                Height="20"
                 x:Name="OpenFileButton"
                 Content="Open Music File"
                 Command="{Binding OpenFileCommand}"/>
         </StackPanel>
+        
+        <ListView
+            Grid.Column="0"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            SelectionMode="Single"
+            SelectionChanged="Selector_OnSelectionChanged"
+            ItemsSource="{Binding TrackCollection}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Title" Width="120" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Artist" Width="130" DisplayMemberBinding="{Binding Artist}"/>
+                    <GridViewColumn Header="Album" Width="130" DisplayMemberBinding="{Binding Album}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
         <StackPanel
             Grid.Column="0"
@@ -42,15 +95,60 @@
             Margin="5">
 
             <Button
-                x:Name="Skip Back Button"
+                x:Name="SkipBackButton"
+                Height="20"
+                Width="70"
                 Content="Prev Song"
-                Command="{Binding OpenDirectoryCommand}"
+                Command="{Binding SkipBackwardCommand}"
                 Margin="0,0,10,0"/>
 
             <Button
                 x:Name="PlayButton"
-                Content="Play"
-                Command="{Binding OpenFileCommand}"/>
+                 Height="20"
+                Width="70"
+                Margin="0,0,10,0">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Setters>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border
+                                            x:Name="Border"
+                                            BorderThickness="0"
+                                            Background="LightBlue">
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                Text="{TemplateBinding Content}"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="CornflowerBlue"/>
+                                            </Trigger>
+                                            <DataTrigger Binding="{Binding IsPlaying}" Value="True">
+                                                <Setter Property="Content" Value="Pause"/>
+                                                <Setter Property="Command" Value="{Binding PauseCommand}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsPlaying}" Value="False">
+                                                <Setter Property="Content" Value="Play"/>
+                                                <Setter Property="Command" Value="{Binding PlayCommand}"/>
+                                            </DataTrigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style.Setters>
+                    </Style>
+                </Button.Style>
+            </Button>
+            
+            <Button
+                x:Name="SkipForwardButton"
+                Height="20"
+                Width="70"
+                Content="Next Song"
+                Command="{Binding SkipForwardCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

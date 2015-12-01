@@ -62,6 +62,12 @@ namespace MusicPlayer.ViewModel
             get { return _openDirectoryCommand ?? (_openDirectoryCommand = new RelayCommand(OpenDirectory)); }
         }
 
+        public bool IsPlaying
+        {
+            get { return _isPlaying; }
+            set { SetAndNotify(ref _isPlaying, value);}
+        }
+
         #endregion
 
         #region Constructors
@@ -79,25 +85,24 @@ namespace MusicPlayer.ViewModel
             {
                 BuildPlayer();
             }
-            else
-            {
-                _currentPlayer.Play();
-                _isPlaying = true;
-            }
+           
+            _currentPlayer.Play();
+            IsPlaying = true;
+
         }
 
         private void PauseSong(object o)
         {
-            if(!_isPlaying || _currentPlayer == null)
+            if(!IsPlaying || _currentPlayer == null)
                 return;
 
             _currentPlayer.Pause();
-            _isPlaying = false;
+            IsPlaying = false;
         }
 
         private void NextSong(object o)
         {
-            if (_isPlaying)
+            if (IsPlaying)
             {
                 _currentPlayer.Stop();
             }
@@ -117,7 +122,7 @@ namespace MusicPlayer.ViewModel
 
         private void PrevSong(object o)
         {
-            if (_isPlaying)
+            if (IsPlaying)
             {
                 _currentPlayer.Stop();
             }
