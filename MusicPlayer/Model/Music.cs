@@ -1,13 +1,16 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using MusicPlayer.ViewModel;
 
 namespace MusicPlayer.Model
 {
-    public class Music
+    public class Music : ViewModelBase
     {
         #region Fields
         private string _filePath, _name, _artist, _album;
+        private bool _isPlaying;
         #endregion
 
         #region Properties
@@ -15,6 +18,12 @@ namespace MusicPlayer.Model
         {
             get { return _filePath; }
             set { _filePath = value; }
+        }
+
+        public bool IsPlaying
+        {
+            get { return _isPlaying; }
+            set { _isPlaying = value; OnPropertyChanged(); }
         }
 
         public string Name
@@ -81,6 +90,6 @@ namespace MusicPlayer.Model
 
         #region Events
 
-        #endregion 
+        #endregion
     }
 }

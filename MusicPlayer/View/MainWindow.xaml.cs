@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Input;
+using MusicPlayer.Model;
 using MusicPlayer.ViewModel;
 
 namespace MusicPlayer
@@ -25,9 +27,17 @@ namespace MusicPlayer
             DataContext = _viewModel;
         }
 
-        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void Control_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            var listView = sender as ListView;
+
+            if (listView != null)
+            {
+                var music = listView.SelectedItem as Music;
+
+                _viewModel.GetSelectedMusic(music);
+            }
         }
     }
 }

@@ -16,6 +16,7 @@ namespace MusicPlayer.ViewModel
         private ObservableCollection<Music> _trackCollection;
         private MediaPlayer _currentPlayer;
         private int _currentSongIdx;
+        private Music _currentSong;
         private bool _isPlaying;
         private RelayCommand _playCommand, _pauseCommand, _skipForwardCommand, _skipBackwardCommand,
             _openFileCommand, _openDirectoryCommand;
@@ -25,6 +26,18 @@ namespace MusicPlayer.ViewModel
         public MediaPlayer CurrentPlayer
         {
             get { return _currentPlayer; }
+        }
+
+        public Music CurrentSong
+        {
+            get { return _currentSong; }
+            set { SetAndNotify(ref _currentSong, value);}
+
+        }
+
+        public bool AnyMusic
+        {
+            get { return _trackCollection.Any(); }
         }
 
         public ObservableCollection<Music> TrackCollection
@@ -81,18 +94,25 @@ namespace MusicPlayer.ViewModel
         #region Methods
         private void PlaySong(object o)
         {
+            if(!AnyMusic)
+                return;
+
             if(_currentPlayer == null)
             {
                 BuildPlayer();
             }
            
             _currentPlayer.Play();
+            CurrentSong.IsPlaying = true;
             IsPlaying = true;
 
         }
 
         private void PauseSong(object o)
         {
+            if (!AnyMusic)
+                return;
+
             if(!IsPlaying || _currentPlayer == null)
                 return;
 
@@ -102,8 +122,12 @@ namespace MusicPlayer.ViewModel
 
         private void NextSong(object o)
         {
+            if (!AnyMusic)
+                return;
+
             if (IsPlaying)
             {
+                CurrentSong.IsPlaying = false;
                 _currentPlayer.Stop();
             }
 
@@ -122,8 +146,12 @@ namespace MusicPlayer.ViewModel
 
         private void PrevSong(object o)
         {
+            if (!AnyMusic)
+                return;
+
             if (IsPlaying)
             {
+                CurrentSong.IsPlaying = false;
                 _currentPlayer.Stop();
             }
 
@@ -138,6 +166,23 @@ namespace MusicPlayer.ViewModel
 
             BuildPlayer();
             PlaySong(o);
+        }
+
+        public void GetSelectedMusic(Music m)
+        {
+            if (_currentPlayer != null)
+            {
+                if (IsPlaying)
+                {
+                    CurrentSong.IsPlaying = false;
+                    _currentPlayer.Stop();
+                }
+            }
+
+            _currentPlayer = null;
+            var trackIdx = _trackCollection.IndexOf(m);
+            _currentSongIdx = trackIdx;
+            PlaySong(null);
         }
 
         private void OpenFile(object o)
@@ -199,6 +244,7 @@ namespace MusicPlayer.ViewModel
             if (_trackCollection.Any())
             {
                 var currentTrack = _trackCollection[_currentSongIdx];
+                CurrentSong = currentTrack;
                 _currentPlayer = new MediaPlayer();
                 _currentPlayer.Open(new Uri(currentTrack.FilePath));
             }

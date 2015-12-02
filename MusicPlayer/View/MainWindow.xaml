@@ -33,6 +33,9 @@
                 </Setter>
             </Style.Setters>
         </Style>
+        
+        
+        
     </Window.Resources>
     
     <Grid>
@@ -76,7 +79,8 @@
             Grid.Row="1"
             Grid.ColumnSpan="2"
             SelectionMode="Single"
-            SelectionChanged="Selector_OnSelectionChanged"
+            MouseDoubleClick="Control_OnMouseDoubleClick"
+            SelectedItem="{Binding CurrentSong, Mode=OneWay}"
             ItemsSource="{Binding TrackCollection}">
             <ListView.View>
                 <GridView>
@@ -85,6 +89,19 @@
                     <GridViewColumn Header="Album" Width="130" DisplayMemberBinding="{Binding Album}"/>
                 </GridView>
             </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsPlaying}" Value="True">
+                            <Setter  Property="Foreground" Value="DarkBlue"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding IsPlaying}" Value="False">
+                            <Setter  Property="Foreground" Value="Black"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
 
         <StackPanel
