@@ -63,7 +63,7 @@ namespace MusicPlayer.ViewModel
                 {
                     return _currentPlayer.Position.TotalSeconds;
                 }
-                return 1;
+                return 0;
 
             }
             set
@@ -107,7 +107,7 @@ namespace MusicPlayer.ViewModel
                 {
                     return _currentPlayer.NaturalDuration.TimeSpan.TotalSeconds;                    
                 }
-                return 0;
+                return .1;
             }
         }
 
