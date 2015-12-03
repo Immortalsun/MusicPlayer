@@ -19,6 +19,7 @@ namespace MusicPlayer.ViewModel
         private Music _currentSong;
         private Timer _songTimer;
         private bool _isPlaying,_shuffleMusic,_continuousPlay;
+        private double _volume;
         public bool IsSeeking;
         private RelayCommand _playCommand, _pauseCommand, _skipForwardCommand, _skipBackwardCommand,
             _openFileCommand, _openDirectoryCommand;
@@ -80,18 +81,14 @@ namespace MusicPlayer.ViewModel
         {
             get
             {
-                if (_currentPlayer != null)
-                {
-                    return _currentPlayer.Volume;
-                }
-                return 0;
+                return _volume;
             }
             set
             {
                 if (_currentPlayer != null)
                 {
                     _currentPlayer.Volume = value;
-                    OnPropertyChanged();
+                    SetAndNotify(ref _volume, value);
                     OnPropertyChanged("VolumeTextValue");
                 }
             }
@@ -344,7 +341,12 @@ namespace MusicPlayer.ViewModel
                 _songTimer = new Timer();
                 _songTimer.Tick += TimerTick;
                 _songTimer.Start();
-                OnPropertyChanged("Volume");
+
+                if (Volume.Equals(0.0))
+                {
+                    Volume = _currentPlayer.Volume;
+                }
+                _currentPlayer.Volume = Volume;
                 OnPropertyChanged("VolumeTextValue");
             }
         }
