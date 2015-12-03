@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -38,6 +39,22 @@ namespace MusicPlayer
 
                 _viewModel.GetSelectedMusic(music);
             }
+        }
+
+        private void ProgressSlider_OnDragStarted(object sender, DragStartedEventArgs e)
+        {
+            _viewModel.IsSeeking = true;
+        }
+
+        private void ProgressSlider_OnDragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            _viewModel.IsSeeking = false;
+            _viewModel.ProgressValue = TimeSpan.FromSeconds(ProgressSlider.Value).TotalSeconds;
+        }
+
+        private void ProgressSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using System.Windows.Media;
 using MusicPlayer.Model;
 using MusicPlayer.Utils;
@@ -17,7 +18,9 @@ namespace MusicPlayer.ViewModel
         private MediaPlayer _currentPlayer;
         private int _currentSongIdx;
         private Music _currentSong;
+        private Timer _songTimer;
         private bool _isPlaying;
+        public bool IsSeeking;
         private RelayCommand _playCommand, _pauseCommand, _skipForwardCommand, _skipBackwardCommand,
             _openFileCommand, _openDirectoryCommand;
         #endregion
@@ -38,6 +41,56 @@ namespace MusicPlayer.ViewModel
         public bool AnyMusic
         {
             get { return _trackCollection.Any(); }
+        }
+
+        public double ProgressValue
+        {
+            get
+            {
+                if (_currentPlayer != null)
+                {
+                    return _currentPlayer.Position.TotalSeconds;
+                }
+                return 0;
+
+            }
+            set
+            {
+                if (_currentPlayer != null)
+                {
+                    _currentPlayer.Position = TimeSpan.FromSeconds(value);
+                    OnPropertyChanged();
+                    OnPropertyChanged("ProgressTextValue");
+                }
+            }
+        }
+
+        public double TotalDuration
+        {
+            get
+            {
+                if (_currentPlayer != null && _currentPlayer.NaturalDuration.HasTimeSpan)
+                {
+                    return _currentPlayer.NaturalDuration.TimeSpan.TotalSeconds;                    
+                }
+                return 0;
+            }
+        }
+
+        public string ProgressTextValue
+        {
+            get
+            {
+                return TimeSpan.FromSeconds(ProgressValue).ToString(@"hh\:mm\:ss");
+            }
+        }
+
+        public string TotalDurationTextValue
+        {
+            get
+            {
+                return TimeSpan.FromSeconds(TotalDuration).ToString(@"hh\:mm\:ss");
+            }
         }
 
         public ObservableCollection<Music> TrackCollection
@@ -101,7 +154,6 @@ namespace MusicPlayer.ViewModel
             {
                 BuildPlayer();
             }
-           
             _currentPlayer.Play();
             CurrentSong.IsPlaying = true;
             IsPlaying = true;
@@ -247,8 +299,28 @@ namespace MusicPlayer.ViewModel
                 CurrentSong = currentTrack;
                 _currentPlayer = new MediaPlayer();
                 _currentPlayer.Open(new Uri(currentTrack.FilePath));
+                if (_songTimer != null)
+                {
+                    _songTimer.Stop();
+                    _songTimer.Tick -= TimerTick;
+                }
+                _songTimer = new Timer();
+                _songTimer.Tick += TimerTick;
+                _songTimer.Start();
             }
         }
+
+        private void TimerTick(object sender, EventArgs e)
+        {
+            if (_currentPlayer != null && IsPlaying && _currentPlayer.NaturalDuration.HasTimeSpan && !IsSeeking)
+            {
+                OnPropertyChanged("ProgressValue");
+                OnPropertyChanged("ProgressTextValue");
+                OnPropertyChanged("TotalDuration");
+                OnPropertyChanged("TotalDurationTextValue");
+            }
+        }
+
         #endregion
 
         #region Events

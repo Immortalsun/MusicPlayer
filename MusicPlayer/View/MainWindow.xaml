@@ -103,11 +103,45 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
+        
+        <StackPanel
+            x:Name="ProgressPanel"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Grid.Row="2"
+            Orientation="Vertical">
+            
+            <Slider
+                x:Name="ProgressSlider"
+                Thumb.DragStarted="ProgressSlider_OnDragStarted"
+                Thumb.DragCompleted="ProgressSlider_OnDragCompleted"
+                ValueChanged="ProgressSlider_OnValueChanged"
+                Margin="5"
+                Value="{Binding ProgressValue}"
+                Minimum="0"
+                Maximum="{Binding TotalDuration}"/>
+            <DockPanel
+                Width="{Binding ElementName=ProgressPanel, Path=ActualWidth}">
+                
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Margin="5,0,0,0"
+                    Text="{Binding ProgressTextValue}"/>
+                
+                <TextBlock
+                    DockPanel.Dock="Right"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,5,0"
+                    Text="{Binding TotalDurationTextValue}"/>
+                
+            </DockPanel>
+            
+        </StackPanel>
 
         <StackPanel
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Grid.Row="2"
+            Grid.Row="3"
             Orientation="Horizontal"
             Margin="5">
 
