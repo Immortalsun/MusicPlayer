@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using System.Windows.Media;
 using MusicPlayer.Model;
 using MusicPlayer.Utils;
@@ -19,7 +18,7 @@ namespace MusicPlayer.ViewModel
         private int _currentSongIdx;
         private Music _currentSong;
         private Timer _songTimer;
-        private bool _isPlaying;
+        private bool _isPlaying,_shuffleMusic,_continuousPlay;
         public bool IsSeeking;
         private RelayCommand _playCommand, _pauseCommand, _skipForwardCommand, _skipBackwardCommand,
             _openFileCommand, _openDirectoryCommand;
@@ -43,6 +42,18 @@ namespace MusicPlayer.ViewModel
             get { return _trackCollection.Any(); }
         }
 
+        public bool ShuffleMusic
+        {
+            get { return _shuffleMusic; }
+            set { SetAndNotify(ref _shuffleMusic, value);}
+        }
+
+        public bool ContinuousPlay
+        {
+            get { return _continuousPlay; }
+            set { SetAndNotify(ref _continuousPlay, value);}
+        }
+
         public double ProgressValue
         {
             get
@@ -51,7 +62,7 @@ namespace MusicPlayer.ViewModel
                 {
                     return _currentPlayer.Position.TotalSeconds;
                 }
-                return 0;
+                return 1;
 
             }
             set
@@ -63,6 +74,32 @@ namespace MusicPlayer.ViewModel
                     OnPropertyChanged("ProgressTextValue");
                 }
             }
+        }
+
+        public double Volume
+        {
+            get
+            {
+                if (_currentPlayer != null)
+                {
+                    return _currentPlayer.Volume;
+                }
+                return 0;
+            }
+            set
+            {
+                if (_currentPlayer != null)
+                {
+                    _currentPlayer.Volume = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged("VolumeTextValue");
+                }
+            }
+        }
+
+        public string VolumeTextValue
+        {
+            get { return Volume.ToString("P0"); }
         }
 
         public double TotalDuration
@@ -307,6 +344,8 @@ namespace MusicPlayer.ViewModel
                 _songTimer = new Timer();
                 _songTimer.Tick += TimerTick;
                 _songTimer.Start();
+                OnPropertyChanged("Volume");
+                OnPropertyChanged("VolumeTextValue");
             }
         }
 

@@ -18,10 +18,11 @@
                                 x:Name="Border"
                                 BorderThickness="0"
                                 Background="LightBlue">
-                                <TextBlock
+                                <ContentPresenter
+                                    Margin="2"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
-                                    Text="{TemplateBinding Content}"/>
+                                    Content="{TemplateBinding Content}"/>
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
@@ -33,9 +34,38 @@
                 </Setter>
             </Style.Setters>
         </Style>
-        
-        
-        
+
+        <Style TargetType="{x:Type ToggleButton}">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Border
+                                x:Name="Border"
+                                BorderThickness="0"
+                                Background="LightBlue">
+                                <ContentPresenter
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Content="{TemplateBinding Content}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="CornflowerBlue"/>
+                                </Trigger>
+
+                                <Trigger Property="IsChecked" Value="False">
+                                    <Setter TargetName="Border" Property="Background" Value="LightBlue"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+
+
+
     </Window.Resources>
     
     <Grid>
@@ -117,8 +147,8 @@
                 Thumb.DragCompleted="ProgressSlider_OnDragCompleted"
                 ValueChanged="ProgressSlider_OnValueChanged"
                 Margin="5"
-                Value="{Binding ProgressValue}"
                 Minimum="0"
+                Value="{Binding ProgressValue}"
                 Maximum="{Binding TotalDuration}"/>
             <DockPanel
                 Width="{Binding ElementName=ProgressPanel, Path=ActualWidth}">
@@ -149,9 +179,12 @@
                 x:Name="SkipBackButton"
                 Height="20"
                 Width="70"
-                Content="Prev Song"
                 Command="{Binding SkipBackwardCommand}"
-                Margin="0,0,10,0"/>
+                Margin="0,0,10,0">
+                <Image
+                    Source="../Icons/skipBack.png"
+                    Stretch="Uniform"></Image>
+            </Button>
 
             <Button
                 x:Name="PlayButton"
@@ -168,21 +201,34 @@
                                             x:Name="Border"
                                             BorderThickness="0"
                                             Background="LightBlue">
-                                            <TextBlock
+                                            <ContentPresenter
+                                                Margin="2"
                                                 VerticalAlignment="Center"
                                                 HorizontalAlignment="Center"
-                                                Text="{TemplateBinding Content}"/>
+                                                Content="{TemplateBinding Content}"/>
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
                                                 <Setter TargetName="Border" Property="Background" Value="CornflowerBlue"/>
                                             </Trigger>
                                             <DataTrigger Binding="{Binding IsPlaying}" Value="True">
-                                                <Setter Property="Content" Value="Pause"/>
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <Image
+                                                            Source="../Icons/pause.png"
+                                                            Stretch="Uniform"/>
+                                                    </Setter.Value>
+                                                </Setter>
                                                 <Setter Property="Command" Value="{Binding PauseCommand}"/>
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding IsPlaying}" Value="False">
-                                                <Setter Property="Content" Value="Play"/>
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <Image
+                                                            Source="../Icons/Play.png"
+                                                            Stretch="Uniform"/>
+                                                    </Setter.Value>
+                                                </Setter>
                                                 <Setter Property="Command" Value="{Binding PlayCommand}"/>
                                             </DataTrigger>
                                         </ControlTemplate.Triggers>
@@ -198,8 +244,54 @@
                 x:Name="SkipForwardButton"
                 Height="20"
                 Width="70"
-                Content="Next Song"
-                Command="{Binding SkipForwardCommand}"/>
+                Command="{Binding SkipForwardCommand}">
+                <Image
+                    Source="../Icons/skipForward.png"
+                    Stretch="Uniform"/>
+            </Button>
+            
+            <ContentPresenter
+                Height="20"
+                Width="20"
+                Margin="15,0,0,0">
+                <ContentPresenter.Content>
+                    <Image
+                        Source="../Icons/volume.png"
+                    ></Image>
+                </ContentPresenter.Content>
+               
+            </ContentPresenter>
+            
+            <Slider
+               Margin="5,0,5,0"
+               Width="90"
+               Minimum="0"
+               Maximum="1"
+               Value="{Binding Volume}"
+               />
+            
+            <TextBlock
+                Width="50"
+                Text="{Binding VolumeTextValue}"/>
+            
+            <ToggleButton
+                HorizontalAlignment="Right"
+                Margin="15,0,0,0"
+                Height="20"
+                Width="30"
+                IsChecked="{Binding ShuffleSongs}">
+                <Image
+                    Source="../Icons/shuffle.png"
+                    Stretch="Uniform"></Image>
+            </ToggleButton>
+            <ToggleButton
+                Margin="5,0,0,0"
+                Height="20"
+                Width="30"
+                IsChecked="{Binding ContinuousPlay}">
+                <Image
+                    Source="../Icons/continuous.png"></Image>
+            </ToggleButton>
         </StackPanel>
     </Grid>
 </Window>
