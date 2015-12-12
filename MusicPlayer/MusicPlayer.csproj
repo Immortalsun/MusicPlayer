@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Utils\RelayCommand.cs" />
+    <Compile Include="Utils\ThreadSafeRandom.cs" />
     <Compile Include="ViewModel\MusicPlayerViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="View\MainWindow.xaml">

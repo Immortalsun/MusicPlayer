@@ -279,7 +279,7 @@
                 Margin="15,0,0,0"
                 Height="20"
                 Width="30"
-                IsChecked="{Binding ShuffleSongs}">
+                IsChecked="{Binding ShuffleMusic}">
                 <Image
                     Source="../Icons/shuffle.png"
                     Stretch="Uniform"></Image>

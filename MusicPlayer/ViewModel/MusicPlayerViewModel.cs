@@ -7,6 +7,7 @@ using System.Windows.Media;
 using MusicPlayer.Model;
 using MusicPlayer.Utils;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using System.Collections.Generic;
 
 namespace MusicPlayer.ViewModel
 {
@@ -21,6 +22,7 @@ namespace MusicPlayer.ViewModel
         private bool _isPlaying,_shuffleMusic,_continuousPlay;
         private double _volume;
         public bool IsSeeking;
+        private List<int> indexList;
         private RelayCommand _playCommand, _pauseCommand, _skipForwardCommand, _skipBackwardCommand,
             _openFileCommand, _openDirectoryCommand;
         #endregion
@@ -46,7 +48,18 @@ namespace MusicPlayer.ViewModel
         public bool ShuffleMusic
         {
             get { return _shuffleMusic; }
-            set { SetAndNotify(ref _shuffleMusic, value);}
+            set 
+            { 
+                SetAndNotify(ref _shuffleMusic, value);
+                if (_shuffleMusic)
+                {
+                    ShuffleSongs();
+                }
+                else 
+                {
+                    indexList = null;
+                }
+            }
         }
 
         public bool ContinuousPlay
@@ -217,15 +230,24 @@ namespace MusicPlayer.ViewModel
                 _currentPlayer.Stop();
             }
 
-            if (_currentSongIdx < _trackCollection.Count - 1)
+            if (indexList == null)
             {
-                _currentSongIdx++;
+                if (_currentSongIdx < _trackCollection.Count - 1)
+                {
+                    _currentSongIdx++;
+                }
+                else
+                {
+                    if (_continuousPlay)
+                    {
+                        _currentSongIdx = 0;
+                    }
+                }
             }
-            else
+            else 
             {
-                _currentSongIdx = 0;
+                _currentSongIdx = indexList.IndexOf(_currentSongIdx++);
             }
-
             BuildPlayer();
             PlaySong(o);
         }
@@ -252,6 +274,23 @@ namespace MusicPlayer.ViewModel
 
             BuildPlayer();
             PlaySong(o);
+        }
+
+        private void ShuffleSongs() 
+        {
+            indexList = new List<int>(Enumerable.Range(0,_trackCollection.Count));
+
+            int count = indexList.Count;
+
+            while(count > 1)
+            {
+                count--;
+                int k = ThreadSafeRandom.ThisThreadsRandom.Next(count+1);
+                int value = indexList[k];
+                indexList[k] = indexList[count];
+                indexList[count] = value;
+            }
+
         }
 
         public void GetSelectedMusic(Music m)
@@ -359,6 +398,11 @@ namespace MusicPlayer.ViewModel
                 OnPropertyChanged("ProgressTextValue");
                 OnPropertyChanged("TotalDuration");
                 OnPropertyChanged("TotalDurationTextValue");
+            }
+
+            if (ProgressValue.Equals(TotalDuration)) 
+            {
+                NextSong(null);
             }
         }
 

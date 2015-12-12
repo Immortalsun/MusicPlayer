@@ -15,3 +15,20 @@ C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\o
 C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.csproj.GenerateResource.Cache
 C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.exe
 C:\Users\Maashes\Documents\Visual Studio 2013\Projects\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.pdb
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\bin\Debug\MusicPlayer.exe.config
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\bin\Debug\MusicPlayer.exe
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\bin\Debug\MusicPlayer.pdb
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\bin\Debug\policy.2.0.taglib-sharp.dll
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\bin\Debug\taglib-sharp.dll
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\bin\Debug\policy.2.0.taglib-sharp.config
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.csprojResolveAssemblyReference.cache
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\View\MainWindow.g.cs
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\App.g.cs
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer_MarkupCompile.cache
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer_MarkupCompile.lref
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\View\MainWindow.baml
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.g.resources
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.Properties.Resources.resources
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.csproj.GenerateResource.Cache
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.exe
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.pdb
