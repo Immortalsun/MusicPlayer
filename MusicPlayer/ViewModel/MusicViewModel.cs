@@ -70,9 +70,10 @@ namespace MusicPlayer.ViewModel
             dlg.ShowDialog();
             if (dlg.DialogResult == true) 
             {
-                _music.Artist = Artist;
-                _music.Album = Album;
-                _music.Name = Name;
+                
+               Artist = _music.Artist = dlg.Artist;
+               Album = _music.Album = dlg.Album;
+               Name = _music.Name = dlg.SongName;
             }
         }
 
