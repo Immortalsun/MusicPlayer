@@ -6,7 +6,7 @@ using MusicPlayer.ViewModel;
 
 namespace MusicPlayer.Model
 {
-    public class Music : ViewModelBase
+    public class Music
     {
         #region Fields
         private string _filePath, _name, _artist, _album;
@@ -18,12 +18,6 @@ namespace MusicPlayer.Model
         {
             get { return _filePath; }
             set { _filePath = value; }
-        }
-
-        public bool IsPlaying
-        {
-            get { return _isPlaying; }
-            set { _isPlaying = value; OnPropertyChanged(); }
         }
 
         public string Name

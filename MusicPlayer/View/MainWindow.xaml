@@ -63,7 +63,11 @@
                 </Setter>
             </Style.Setters>
         </Style>
-
+        
+        <ContextMenu x:Key="MusicElementContextMenu">
+            <MenuItem Header="Edit Song Info"
+                      Command="{Binding EditCommand}"/>
+        </ContextMenu>
 
 
     </Window.Resources>
@@ -105,13 +109,16 @@
         </StackPanel>
         
         <ListView
+            x:Name="MusicListView"
             Grid.Column="0"
             Grid.Row="1"
             Grid.ColumnSpan="2"
             SelectionMode="Single"
             MouseDoubleClick="Control_OnMouseDoubleClick"
+            MouseRightButtonUp="ListView_MouseRightButtonUp"
             SelectedItem="{Binding CurrentSong, Mode=OneWay}"
             ItemsSource="{Binding TrackCollection}">
+           
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Title" Width="120" DisplayMemberBinding="{Binding Name}"/>
@@ -121,6 +128,7 @@
             </ListView.View>
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="ContextMenu" Value="{StaticResource MusicElementContextMenu}"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsPlaying}" Value="True">
                             <Setter  Property="Foreground" Value="DarkBlue"/>

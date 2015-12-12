@@ -32,3 +32,5 @@ E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\MusicPl
 E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.csproj.GenerateResource.Cache
 E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.exe
 E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.pdb
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\View\EditMusicDialog.baml
+E:\CodeProjects\VSProjects\MusicPlayer\MusicPlayer\MusicPlayer\obj\Debug\View\EditMusicDialog.g.cs

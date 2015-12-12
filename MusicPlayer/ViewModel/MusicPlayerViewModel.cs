@@ -14,10 +14,10 @@ namespace MusicPlayer.ViewModel
     public class MusicPlayerViewModel : ViewModelBase
     {
         #region Fields
-        private ObservableCollection<Music> _trackCollection;
+        private ObservableCollection<MusicViewModel> _trackCollection;
         private MediaPlayer _currentPlayer;
         private int _currentSongIdx;
-        private Music _currentSong;
+        private MusicViewModel _currentSong;
         private Timer _songTimer;
         private bool _isPlaying,_shuffleMusic,_continuousPlay;
         private double _volume;
@@ -33,7 +33,7 @@ namespace MusicPlayer.ViewModel
             get { return _currentPlayer; }
         }
 
-        public Music CurrentSong
+        public MusicViewModel CurrentSong
         {
             get { return _currentSong; }
             set { SetAndNotify(ref _currentSong, value);}
@@ -140,7 +140,7 @@ namespace MusicPlayer.ViewModel
             }
         }
 
-        public ObservableCollection<Music> TrackCollection
+        public ObservableCollection<MusicViewModel> TrackCollection
         {
             get { return _trackCollection; }
         }
@@ -186,7 +186,7 @@ namespace MusicPlayer.ViewModel
         #region Constructors
         public MusicPlayerViewModel()
         {
-            _trackCollection = new ObservableCollection<Music>();
+            _trackCollection = new ObservableCollection<MusicViewModel>();
 
         }
         #endregion
@@ -293,7 +293,7 @@ namespace MusicPlayer.ViewModel
 
         }
 
-        public void GetSelectedMusic(Music m)
+        public void GetSelectedMusic(MusicViewModel m)
         {
             if (_currentPlayer != null)
             {
@@ -343,7 +343,7 @@ namespace MusicPlayer.ViewModel
             {
                 if (ValidateFile(file))
                 {
-                    TrackCollection.Add(new Music(file));
+                    TrackCollection.Add(new MusicViewModel(new Music(file)));
                 }
             }
         }

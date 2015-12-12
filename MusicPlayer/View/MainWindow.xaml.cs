@@ -35,7 +35,7 @@ namespace MusicPlayer
 
             if (listView != null)
             {
-                var music = listView.SelectedItem as Music;
+                var music = listView.SelectedItem as MusicViewModel;
 
                 _viewModel.GetSelectedMusic(music);
             }
@@ -55,6 +55,16 @@ namespace MusicPlayer
         private void ProgressSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
 
+        }
+
+        private void ListView_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var listView = sender as ListView;
+
+            if (listView != null)
+            {
+                var selectedItem = listView.SelectedItem;
+            }
         }
     }
 }
